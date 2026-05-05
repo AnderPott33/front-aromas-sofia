@@ -22,7 +22,7 @@ function App() {
           {/* La Topbar ahora puede mostrar el contador del carrito */}
           <Topbar />
 
-          <main className="flex-grow transition-all duration-300 p-10">
+          <main className="flex-grow transition-all duration-300 p-4">
             <Routes>
               {/* Ruta principal: Tu tienda/catálogo */}
               <Route path="/" element={<Catalogo />} />
