@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext'; // 1. Importar el hook
 import { Link } from 'react-router-dom';
 
 const Topbar = () => {
+    const { searchTerm, setSearchTerm } = useCart();
     // 2. Extraer totalItems del contexto
     const { totalItems } = useCart();
 
@@ -36,6 +37,8 @@ const Topbar = () => {
                             <Search className="w-5 h-5 text-violet-400" />
                         </div>
                         <input
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             type="text"
                             className="bg-violet-50 border border-violet-100 text-violet-900 text-sm rounded-2xl focus:ring-violet-500 focus:border-violet-500 block w-full pl-10 p-2.5 transition-all outline-none"
                             placeholder="Buscar productos..."

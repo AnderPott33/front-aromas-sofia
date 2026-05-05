@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+/* Estilos para navegadores basados en Chrome, Edge y Safari (Webkit) */
+::-webkit-scrollbar {
+  width: 10px; /* Ancho de la barra vertical */
+  height: 10px; /* Alto de la barra horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f3ff; /* violet-50: fondo de la barra */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7c3aed; /* violet-600: color de la barrita */
+  border-radius: 10px;
+  border: 2px solid #f5f3ff; /* Crea un pequeño margen alrededor */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6d28d9; /* violet-700: color al pasar el mouse */
+}
+
+/* Estilos para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7c3aed #f5f3ff;
+}

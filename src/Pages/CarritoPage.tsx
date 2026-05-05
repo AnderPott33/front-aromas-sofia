@@ -5,7 +5,15 @@ import { Link } from 'react-router-dom';
 import { formatarMoeda } from '../utils/Formatadores';
 
 const CarritoPage = () => {
-    const { cart, addToCart, removeFromCart, totalPrecio, clearCart } = useCart();
+    // Extraemos todo lo necesario del Contexto actualizado
+    const { 
+        cart, 
+        addToCart, 
+        decreaseQuantity, 
+        removeFromCart, 
+        totalPrecio, 
+        clearCart 
+    } = useCart();
 
     const enviarWhatsApp = () => {
         const telefono = "595982771774"; 
@@ -18,20 +26,22 @@ const CarritoPage = () => {
         });
 
         mensaje += `--------------------------%0A`;
-        mensaje += `*Total Productos: ${formatarMoeda(totalPrecio, 'PYG')}*%0A`;
-        mensaje += `_Envío a coordinar por WhatsApp_%0A%0A`;
+        mensaje += `*Subtotal: ${formatarMoeda(totalPrecio, 'PYG')}*%0A`;
+        mensaje += `_Envío: A coordinar por WhatsApp_%0A%0A`;
         mensaje += `_¡Hola! Me gustaría confirmar este pedido._`;
 
         const url = `https://wa.me/${telefono}?text=${mensaje}`;
         window.open(url, '_blank');
     };
 
-    const handleDisminuir = (item: any) => {
-        if (item.cantidad > 1) {
-            // Nota: Si no tienes decreaseQuantity, puedes pasar un objeto con cantidad negativa o similar según tu lógica
-            alert("Función para restar cantidad pendiente en CartContext");
+    const handleDisminuir = (id: number, cantidadActual: number) => {
+        if (cantidadActual > 1) {
+            decreaseQuantity(id);
         } else {
-            removeFromCart(item.id);
+            // Si es 1 y el usuario resta, preguntamos o eliminamos
+            if (window.confirm("¿Deseas eliminar este producto del carrito?")) {
+                removeFromCart(id);
+            }
         }
     };
 
@@ -77,14 +87,15 @@ const CarritoPage = () => {
                                 </p>
                             </div>
                             
+                            {/* Controles de Cantidad */}
                             <div className="flex items-center bg-violet-50 rounded-xl p-1">
                                 <button 
-                                    onClick={() => handleDisminuir(item)}
+                                    onClick={() => handleDisminuir(item.id, item.cantidad)}
                                     className="p-2 hover:bg-white rounded-lg transition-colors text-violet-600"
                                 >
                                     <Minus className="w-4 h-4" />
                                 </button>
-                                <span className="px-4 font-bold text-slate-700">{item.cantidad}</span>
+                                <span className="px-4 font-bold text-slate-700 w-8 text-center">{item.cantidad}</span>
                                 <button 
                                     onClick={() => addToCart(item)}
                                     className="p-2 hover:bg-white rounded-lg transition-colors text-violet-600"
@@ -103,7 +114,7 @@ const CarritoPage = () => {
                     ))}
                 </div>
 
-                {/* 2. Resumen de Pago (Ahora abajo de la lista) */}
+                {/* 2. Resumen de Pago */}
                 <div className="w-full">
                     <div className="bg-violet-950 text-white p-8 rounded-[2.5rem] shadow-xl">
                         <h2 className="text-xl font-bold mb-6 text-center sm:text-left">Resumen del Pedido</h2>

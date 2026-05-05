@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { formatarMoeda } from '../../utils/Formatadores';
-import { Plus } from 'lucide-react';
+import { Plus, SearchX } from 'lucide-react';
 import axios from 'axios';
-import { useCart } from '../../context/CartContext'; // 1. Importar el hook del carrito
+import { useCart } from '../../context/CartContext';
 
 interface Producto {
     id: number;
@@ -18,8 +18,8 @@ const ProductoCard = () => {
     const [productos, setProductos] = useState<Producto[]>([]);
     const [cargando, setCargando] = useState(true);
 
-    // 2. Obtener la función addToCart del contexto
-    const { addToCart } = useCart();
+    // 1. Extraer addToCart y searchTerm del contexto
+    const { addToCart, searchTerm } = useCart();
 
     const buscarProductos = async () => {
         try {
@@ -36,11 +36,35 @@ const ProductoCard = () => {
         buscarProductos();
     }, []);
 
-    if (cargando) return <div className="p-10 text-center text-violet-600 font-medium">Cargando catálogo...</div>;
+    // 2. Lógica de filtrado: Filtramos la lista original basándonos en el searchTerm
+    const productosFiltrados = productos.filter((item) =>
+        item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (cargando) return (
+        <div className="p-20 text-center">
+            <div className="animate-spin inline-block w-8 h-8 border-4 border-violet-600 border-t-transparent rounded-full mb-4"></div>
+            <p className="text-violet-600 font-medium">Cargando catálogo...</p>
+        </div>
+    );
+
+    // 3. Si no hay productos que coincidan con la búsqueda
+    if (productosFiltrados.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center py-20 text-center w-full col-span-full">
+                <div className="bg-slate-50 p-6 rounded-full mb-4">
+                    <SearchX className="w-12 h-12 text-slate-300" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-800">No encontramos resultados</h3>
+                <p className="text-slate-500 mt-2">No hay productos que coincidan con "{searchTerm}"</p>
+            </div>
+        );
+    }
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
-            {productos.map((item) => (
+            {/* 4. Mapeamos los productos ya filtrados */}
+            {productosFiltrados.map((item) => (
                 <div
                     key={item.id}
                     className="bg-white rounded-[2.5rem] p-4 border border-violet-100 shadow-sm hover:shadow-xl hover:shadow-violet-100/50 transition-all duration-300 group"
@@ -76,9 +100,8 @@ const ProductoCard = () => {
                                 </span>
                             </div>
 
-                            {/* 3. Botón de Acción conectado al carrito */}
                             <button 
-                                onClick={() => addToCart(item)} // Ejecuta la función del contexto
+                                onClick={() => addToCart(item)}
                                 className="bg-violet-600 text-white p-3 rounded-2xl hover:bg-violet-700 shadow-lg shadow-violet-200 active:scale-90 transition-all transform hover:-translate-y-1"
                                 title="Agregar al carrito"
                             >
