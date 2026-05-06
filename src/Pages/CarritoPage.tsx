@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { formatarMoeda } from '../utils/Formatadores';
 
 const CarritoPage = () => {
-    // Extraemos todo lo necesario del Contexto actualizado
     const { 
         cart, 
         addToCart, 
@@ -38,7 +37,6 @@ const CarritoPage = () => {
         if (cantidadActual > 1) {
             decreaseQuantity(id);
         } else {
-            // Si es 1 y el usuario resta, preguntamos o eliminamos
             if (window.confirm("¿Deseas eliminar este producto del carrito?")) {
                 removeFromCart(id);
             }
@@ -48,12 +46,12 @@ const CarritoPage = () => {
     if (cart.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-                <div className="bg-violet-50 p-6 rounded-full mb-4">
-                    <Trash2 className="w-12 h-12 text-violet-300" />
+                <div className="bg-[#F3E5AB]/20 p-6 rounded-full mb-4">
+                    <Trash2 className="w-12 h-12 text-[#D4AF37]/50" />
                 </div>
                 <h2 className="text-2xl font-bold text-slate-800">Tu carrito está vacío</h2>
                 <p className="text-slate-500 mt-2">¿Aún no has elegido nada para tu hogar?</p>
-                <Link to="/" className="mt-6 bg-violet-600 text-white px-8 py-3 rounded-2xl font-bold hover:bg-violet-700 transition-all">
+                <Link to="/" className="mt-6 bg-[#D4AF37] text-white px-8 py-3 rounded-2xl font-bold hover:bg-[#996515] transition-all shadow-lg shadow-[#D4AF37]/20">
                     Volver a la tienda
                 </Link>
             </div>
@@ -64,8 +62,8 @@ const CarritoPage = () => {
         <div className="max-w-4xl mx-auto px-4 py-8">
             {/* Cabecera */}
             <div className="flex items-center gap-4 mb-8">
-                <Link to="/" className="p-2 hover:bg-violet-100 rounded-full transition-colors">
-                    <ArrowLeft className="w-6 h-6 text-violet-600" />
+                <Link to="/" className="p-2 hover:bg-[#F3E5AB]/30 rounded-full transition-colors">
+                    <ArrowLeft className="w-6 h-6 text-[#996515]" />
                 </Link>
                 <h1 className="text-3xl font-black text-slate-900">Finalizar Compra</h1>
             </div>
@@ -74,31 +72,31 @@ const CarritoPage = () => {
                 {/* 1. Lista de Productos */}
                 <div className="space-y-4">
                     {cart.map((item) => (
-                        <div key={item.id} className="bg-white p-4 rounded-[2rem] border border-violet-50 flex flex-col sm:flex-row items-center gap-4 shadow-sm">
+                        <div key={item.id} className="bg-white p-4 rounded-[2rem] border border-[#F3E5AB]/30 flex flex-col sm:flex-row items-center gap-4 shadow-sm">
                             <img 
-                                src={item.img || 'https://placehold.co/100'} 
+                                src={item.img || 'https://placehold.co/100/FDFBF7/D4AF37?text=S/I'} 
                                 alt={item.nombre} 
-                                className="w-24 h-24 object-cover rounded-2xl bg-violet-50"
+                                className="w-24 h-24 object-cover rounded-2xl bg-[#F3E5AB]/10"
                             />
                             <div className="flex-1 text-center sm:text-left">
                                 <h3 className="font-bold text-slate-800">{item.nombre}</h3>
-                                <p className="text-violet-600 font-black text-lg">
+                                <p className="text-[#D4AF37] font-black text-lg">
                                     {formatarMoeda(item.venta, 'PYG')}
                                 </p>
                             </div>
                             
                             {/* Controles de Cantidad */}
-                            <div className="flex items-center bg-violet-50 rounded-xl p-1">
+                            <div className="flex items-center bg-[#F3E5AB]/20 rounded-xl p-1">
                                 <button 
                                     onClick={() => handleDisminuir(item.id, item.cantidad)}
-                                    className="p-2 hover:bg-white rounded-lg transition-colors text-violet-600"
+                                    className="p-2 hover:bg-white rounded-lg transition-colors text-[#996515]"
                                 >
                                     <Minus className="w-4 h-4" />
                                 </button>
                                 <span className="px-4 font-bold text-slate-700 w-8 text-center">{item.cantidad}</span>
                                 <button 
                                     onClick={() => addToCart(item)}
-                                    className="p-2 hover:bg-white rounded-lg transition-colors text-violet-600"
+                                    className="p-2 hover:bg-white rounded-lg transition-colors text-[#996515]"
                                 >
                                     <Plus className="w-4 h-4" />
                                 </button>
@@ -106,7 +104,7 @@ const CarritoPage = () => {
 
                             <button 
                                 onClick={() => removeFromCart(item.id)}
-                                className="p-3 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors"
+                                className="p-3 text-rose-400 hover:bg-rose-50 rounded-xl transition-colors"
                             >
                                 <Trash2 className="w-5 h-5" />
                             </button>
@@ -114,36 +112,36 @@ const CarritoPage = () => {
                     ))}
                 </div>
 
-                {/* 2. Resumen de Pago */}
+                {/* 2. Resumen de Pago - Estética Premium */}
                 <div className="w-full">
-                    <div className="bg-violet-950 text-white p-8 rounded-[2.5rem] shadow-xl">
-                        <h2 className="text-xl font-bold mb-6 text-center sm:text-left">Resumen del Pedido</h2>
+                    <div className="bg-[#1a1405] text-white p-8 rounded-[2.5rem] shadow-xl border border-[#D4AF37]/20">
+                        <h2 className="text-xl font-bold mb-6 text-center sm:text-left text-[#F3E5AB]">Resumen del Pedido</h2>
                         
-                        <div className="space-y-4 mb-6 border-b border-white/10 pb-6">
-                            <div className="flex justify-between text-violet-200">
+                        <div className="space-y-4 mb-6 border-b border-[#F3E5AB]/10 pb-6">
+                            <div className="flex justify-between text-[#F3E5AB]/80">
                                 <span>Subtotal productos</span>
                                 <span>{formatarMoeda(totalPrecio, 'PYG')}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-violet-200">Costo de envío</span>
-                                <span className="text-violet-400 text-sm font-medium italic">A coordinar por WhatsApp</span>
+                                <span className="text-[#F3E5AB]/80">Costo de envío</span>
+                                <span className="text-[#D4AF37] text-sm font-medium italic">A coordinar por WhatsApp</span>
                             </div>
                         </div>
 
                         <div className="flex justify-between items-end mb-8">
                             <div>
-                                <span className="text-violet-300 block text-sm">Total parcial</span>
-                                <span className="text-3xl font-black">{formatarMoeda(totalPrecio, 'PYG')}</span>
+                                <span className="text-[#F3E5AB]/60 block text-sm">Total parcial</span>
+                                <span className="text-3xl font-black text-[#D4AF37]">{formatarMoeda(totalPrecio, 'PYG')}</span>
                             </div>
                             <div className="text-right">
-                                <p className="text-xs text-violet-400 uppercase tracking-widest">Sujeto a entrega</p>
+                                <p className="text-xs text-[#F3E5AB]/40 uppercase tracking-widest">Sujeto a entrega</p>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <button 
                                 onClick={enviarWhatsApp}
-                                className="bg-violet-600 hover:bg-violet-500 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-lg shadow-black/20 order-1 sm:order-2"
+                                className="bg-[#D4AF37] hover:bg-[#996515] text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-lg shadow-black/20 order-1 sm:order-2 active:scale-95"
                             >
                                 <MessageCircle className="w-6 h-6" />
                                 Finalizar por WhatsApp
@@ -151,7 +149,7 @@ const CarritoPage = () => {
 
                             <button 
                                 onClick={clearCart}
-                                className="text-violet-400 text-sm hover:text-white transition-colors py-4 order-2 sm:order-1"
+                                className="text-[#F3E5AB]/40 text-sm hover:text-rose-400 transition-colors py-4 order-2 sm:order-1"
                             >
                                 Vaciar Carrito
                             </button>

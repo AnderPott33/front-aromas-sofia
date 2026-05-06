@@ -25,3 +25,11 @@
   scrollbar-width: thin;
   scrollbar-color: #7c3aed #f5f3ff;
 }
+
+button{
+  cursor: pointer;
+}
+
+button:active{
+  scale: 0.9;
+}

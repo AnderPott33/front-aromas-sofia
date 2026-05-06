@@ -3,6 +3,7 @@ import { CartProvider } from './context/CartContext';
 import Topbar from './components/topbar';
 import Catalogo from './Pages/catalogo';
 import CarritoPage from './Pages/CarritoPage';
+import SobreNosotros from './Pages/SobreNosotros';
 
 // Un componente rápido para la página de administración
 const AdminPage = () => (
@@ -25,7 +26,8 @@ function App() {
           <main className="flex-grow transition-all duration-300 p-4">
             <Routes>
               {/* Ruta principal: Tu tienda/catálogo */}
-              <Route path="/" element={<Catalogo />} />
+              <Route path="/" element={<SobreNosotros />} />
+              <Route path="/catalogo" element={<Catalogo />} />
               <Route path="/carrito" element={<CarritoPage />} />
 
               {/* Ruta para agregar/editar productos */}

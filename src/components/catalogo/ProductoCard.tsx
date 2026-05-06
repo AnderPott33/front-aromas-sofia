@@ -18,7 +18,6 @@ const ProductoCard = () => {
     const [productos, setProductos] = useState<Producto[]>([]);
     const [cargando, setCargando] = useState(true);
 
-    // 1. Extraer addToCart y searchTerm del contexto
     const { addToCart, searchTerm } = useCart();
 
     const buscarProductos = async () => {
@@ -36,24 +35,24 @@ const ProductoCard = () => {
         buscarProductos();
     }, []);
 
-    // 2. Lógica de filtrado: Filtramos la lista original basándonos en el searchTerm
     const productosFiltrados = productos.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Loader con tonos dorados
     if (cargando) return (
         <div className="p-20 text-center">
-            <div className="animate-spin inline-block w-8 h-8 border-4 border-violet-600 border-t-transparent rounded-full mb-4"></div>
-            <p className="text-violet-600 font-medium">Cargando catálogo...</p>
+            <div className="animate-spin inline-block w-8 h-8 border-4 border-[#D4AF37] border-t-transparent rounded-full mb-4"></div>
+            <p className="text-[#996515] font-medium">Cargando catálogo...</p>
         </div>
     );
 
-    // 3. Si no hay productos que coincidan con la búsqueda
+    // Estado vacío con tonos arena/dorado suave
     if (productosFiltrados.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center w-full col-span-full">
-                <div className="bg-slate-50 p-6 rounded-full mb-4">
-                    <SearchX className="w-12 h-12 text-slate-300" />
+                <div className="bg-[#F3E5AB]/20 p-6 rounded-full mb-4">
+                    <SearchX className="w-12 h-12 text-[#D4AF37]/50" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-800">No encontramos resultados</h3>
                 <p className="text-slate-500 mt-2">No hay productos que coincidan con "{searchTerm}"</p>
@@ -63,23 +62,22 @@ const ProductoCard = () => {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
-            {/* 4. Mapeamos los productos ya filtrados */}
             {productosFiltrados.map((item) => (
                 <div
                     key={item.id}
-                    className="bg-white rounded-[2.5rem] p-4 border border-violet-100 shadow-sm hover:shadow-xl hover:shadow-violet-100/50 transition-all duration-300 group"
+                    className="bg-white rounded-[2.5rem] p-4 border border-[#F3E5AB]/30 shadow-sm hover:shadow-xl hover:shadow-[#F3E5AB]/40 transition-all duration-300 group"
                 >
                     {/* Contenedor de Imagen */}
-                    <div className="relative aspect-square overflow-hidden rounded-[2rem] bg-violet-50">
+                    <div className="relative aspect-square overflow-hidden rounded-[2rem] bg-[#F3E5AB]/10">
                         <img
                             src={item.img && item.img.trim() !== ""
                                 ? item.img
-                                : 'https://placehold.co/300x300/f5f3ff/7c3aed?text=Sin+Imagen'}
+                                : 'https://placehold.co/300x300/FDFBF7/D4AF37?text=Aromas+Sofia'}
                             alt={item.nombre}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         {item.activo && (
-                            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-violet-600 uppercase tracking-wider shadow-sm">
+                            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#996515] uppercase tracking-wider shadow-sm border border-[#F3E5AB]">
                                 Disponible
                             </div>
                         )}
@@ -87,10 +85,10 @@ const ProductoCard = () => {
 
                     {/* Información del Producto */}
                     <div className="mt-4 px-2">
-                        <h3 className="text-slate-800 font-bold text-lg leading-tight group-hover:text-violet-600 transition-colors">
+                        <h3 className="text-slate-800 font-bold text-lg leading-tight group-hover:text-[#D4AF37] transition-colors">
                             {item.nombre}
                         </h3>
-                        <p className="text-slate-400 text-xs mt-1">Disponibilidad inmediata</p>
+                        <p className="text-slate-400 text-xs mt-1">Fragancia exclusiva</p>
 
                         <div className="flex justify-between items-center mt-4">
                             <div className="flex flex-col">
@@ -102,7 +100,7 @@ const ProductoCard = () => {
 
                             <button 
                                 onClick={() => addToCart(item)}
-                                className="bg-violet-600 text-white p-3 rounded-2xl hover:bg-violet-700 shadow-lg shadow-violet-200 active:scale-90 transition-all transform hover:-translate-y-1"
+                                className="bg-[#D4AF37] text-white p-3 rounded-2xl hover:bg-[#996515] shadow-lg shadow-[#D4AF37]/30 active:scale-95 transition-all transform hover:-translate-y-1"
                                 title="Agregar al carrito"
                             >
                                 <Plus className="w-6 h-6" />
