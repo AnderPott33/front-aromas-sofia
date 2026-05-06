@@ -83,12 +83,12 @@ const Topbar = () => {
                     </NavLink>
 
                     {/* Perfil de Usuario */}
-                    <button className="hidden sm:flex items-center gap-2 p-1 pr-3 text-sm font-semibold text-[#996515] rounded-2xl hover:bg-[#D4AF37]/10 transition-colors border border-transparent hover:border-[#D4AF37]/30">
-                        <div className="w-8 h-8 bg-[#D4AF37]/20 rounded-xl flex items-center justify-center">
-                            <User className="w-5 h-5 text-[#996515]" />
-                        </div>
-                        <span className="hidden sm:inline">Mi Cuenta</span>
-                    </button>
+                    {/*  <button className="hidden sm:flex items-center gap-2 p-1 pr-3 text-sm font-semibold text-[#996515] rounded-2xl hover:bg-[#D4AF37]/10 transition-colors border border-transparent hover:border-[#D4AF37]/30">
+                            <div className="w-8 h-8 bg-[#D4AF37]/20 rounded-xl flex items-center justify-center">
+                                <User className="w-5 h-5 text-[#996515]" />
+                            </div>
+                            <span className="hidden sm:inline">Mi Cuenta</span>
+                        </button> */}
 
                     {/* Botón Menú Hamburguesa (Solo visible en móvil/tablet) */}
                     <button 

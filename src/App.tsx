@@ -4,14 +4,15 @@ import Topbar from './components/topbar';
 import Catalogo from './Pages/catalogo';
 import CarritoPage from './Pages/CarritoPage';
 import SobreNosotros from './Pages/SobreNosotros';
+import AdminPage from './Pages/Administracion';
 
 // Un componente rápido para la página de administración
-const AdminPage = () => (
+/* const AdminPage = () => (
   <div className="max-w-7xl mx-auto px-4 py-8">
     <h1 className="text-3xl font-extrabold text-violet-950">Panel de Gestión</h1>
     <p className="text-slate-500 mt-2">Aquí irá el formulario para subir productos a Cloudinary y Neon.</p>
   </div>
-);
+); */
 
 function App() {
   return (

@@ -35,7 +35,9 @@ const ProductoCard = () => {
         buscarProductos();
     }, []);
 
-    const productosFiltrados = productos.filter((item) =>
+    const productosActivos = productos.filter(p=> p.activo);
+
+    const productosFiltrados = productosActivos.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
