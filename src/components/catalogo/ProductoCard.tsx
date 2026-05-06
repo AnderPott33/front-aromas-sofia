@@ -64,58 +64,68 @@ const ProductoCard = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
-            {productosFiltrados.map((item) => (
-                <div
-                    key={item.id}
-                    className="bg-white rounded-[2.5rem] p-4 border border-[#F3E5AB]/30 shadow-sm hover:shadow-xl hover:shadow-[#F3E5AB]/40 transition-all duration-300 group"
-                >
-                    {/* Contenedor de Imagen */}
-                    <div className="relative aspect-square overflow-hidden rounded-[2rem] bg-[#F3E5AB]/10">
-                        <img
-                            src={item.img && item.img.trim() !== ""
-                                ? item.img
-                                : 'https://placehold.co/300x300/FDFBF7/D4AF37?text=Aromas+Sofia'}
-                            alt={item.nombre}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                        {item.activo && (
-                            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-[#996515] uppercase tracking-wider shadow-sm border border-[#F3E5AB]">
-                                Disponible
-                            </div>
-                        )}
+       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-6">
+    {productosFiltrados.map((item) => (
+        <div
+            key={item.id}
+            className="group relative bg-white rounded-[2.5rem] p-3 border border-[#F3E5AB]/20 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(212,175,55,0.15)] transition-all duration-500 ease-out"
+        >
+            {/* Contenedor de Imagen con Efecto Zoom */}
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#FDFBF7]">
+                <img
+                    src={item.img && item.img.trim() !== ""
+                        ? item.img
+                        : 'https://placehold.co/400x500/FDFBF7/D4AF37?text=Aromas+Sofia'}
+                    alt={item.nombre}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                />
+                
+                {/* Overlay gradiente suave al hacer hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1405]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {item.activo && (
+                    <div className="absolute top-4 left-4 bg-white/80 backdrop-blur-md px-4 py-1.5 rounded-full shadow-sm border border-[#F3E5AB]/50">
+                        <p className="text-[10px] font-black text-[#996515] uppercase tracking-[0.15em]">
+                            Disponible
+                        </p>
                     </div>
+                )}
+            </div>
 
-                    {/* Información del Producto */}
-                    <div className="mt-4 px-2">
-                        <h3 className="text-slate-800 font-bold text-lg leading-tight group-hover:text-[#D4AF37] transition-colors">
-                            {item.nombre}
-                        </h3>
-                        <h3 className="text-slate-800 font-bold text-lg leading-tight group-hover:text-[#D4AF37] transition-colors">
-                            {item.descripcion}
-                        </h3>
-                        <p className="text-slate-400 text-xs mt-1">Fragancia exclusiva</p>
-
-                        <div className="flex justify-between items-center mt-4">
-                            <div className="flex flex-col">
-                                <span className="text-xs text-slate-400 font-medium">Precio</span>
-                                <span className="text-2xl font-black text-slate-900">
-                                    {formatarMoeda(Number(item.venta), 'PYG')}
-                                </span>
-                            </div>
-
-                            <button 
-                                onClick={() => addToCart(item)}
-                                className="bg-[#D4AF37] text-white p-3 rounded-2xl hover:bg-[#996515] shadow-lg shadow-[#D4AF37]/30 active:scale-95 transition-all transform hover:-translate-y-1"
-                                title="Agregar al carrito"
-                            >
-                                <Plus className="w-6 h-6" />
-                            </button>
-                        </div>
-                    </div>
+            {/* Información del Producto */}
+            <div className="mt-5 px-3 pb-4">
+                <div className="mb-2">
+                    <p className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest mb-1">Fragancia Exclusiva</p>
+                    <h3 className="text-slate-900 font-black text-xl leading-tight group-hover:text-[#996515] transition-colors duration-300">
+                        {item.nombre}
+                    </h3>
                 </div>
-            ))}
+
+                {/* Descripción con límite de 2 líneas */}
+                <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 min-h-[2.5rem]">
+                    {item.descripcion || "Sumérgete en una experiencia sensorial única con nuestra esencia artesanal."}
+                </p>
+
+                <div className="flex justify-between items-end mt-6">
+                    <div className="flex flex-col">
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Inversión</span>
+                        <span className="text-2xl font-black text-slate-900 tracking-tight">
+                            {formatarMoeda(Number(item.venta), 'PYG')}
+                        </span>
+                    </div>
+
+                    <button 
+                        onClick={() => addToCart(item)}
+                        className="relative overflow-hidden bg-[#1a1405] text-white p-4 rounded-2xl hover:bg-[#D4AF37] shadow-xl shadow-[#1a1405]/10 hover:shadow-[#D4AF37]/30 transition-all duration-300 group/btn"
+                        title="Agregar al carrito"
+                    >
+                        <Plus className="w-6 h-6 transform group-hover/btn:rotate-90 transition-transform duration-300" />
+                    </button>
+                </div>
+            </div>
         </div>
+    ))}
+</div>
     );
 };
 
