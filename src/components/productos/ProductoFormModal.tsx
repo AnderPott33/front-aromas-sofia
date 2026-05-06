@@ -8,7 +8,7 @@ interface Producto {
   nombre: string;
   compra: number;
   venta: number;
-  descripcion: String;
+  descripcion?: string;
   img?: string;
   activo: boolean;
 }
@@ -38,7 +38,7 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
       setNombre(productoParaEditar.nombre);
       setCompra(Number(productoParaEditar.compra));
       setVenta(Number(productoParaEditar.venta));
-      setDescripcion(productoParaEditar.descripcion);
+      setDescripcion(productoParaEditar.descripcion || '');
       setActivo(productoParaEditar.activo);
       setPreviewUrl(productoParaEditar.img || '');
     } else {
