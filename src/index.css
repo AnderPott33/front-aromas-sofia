@@ -1,29 +1,31 @@
 @import "tailwindcss";
 
-/* Estilos para navegadores basados en Chrome, Edge y Safari (Webkit) */
+/* Estilos para navegadores basados en Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 10px; /* Ancho de la barra vertical */
   height: 10px; /* Alto de la barra horizontal */
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f3ff; /* violet-50: fondo de la barra */
+  background: #FDFBF7; /* Fondo crema de la tienda */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #7c3aed; /* violet-600: color de la barrita */
+  background: #D4AF37; /* Dorado principal: #D4AF37 */
   border-radius: 10px;
-  border: 2px solid #f5f3ff; /* Crea un pequeño margen alrededor */
+  /* El borde crea un efecto de "separación" para que la barra no toque los bordes */
+  border: 3px solid #FDFBF7; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6d28d9; /* violet-700: color al pasar el mouse */
+  background: #996515; /* Un dorado más oscuro para el hover */
 }
 
 /* Estilos para Firefox */
 * {
+  /* scrollbar-color: [Color del pulgar] [Color del fondo] */
   scrollbar-width: thin;
-  scrollbar-color: #7c3aed #f5f3ff;
+  scrollbar-color: #D4AF37 #FDFBF7;
 }
 
 button{
