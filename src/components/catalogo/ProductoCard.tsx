@@ -36,7 +36,7 @@ const ProductoCard = () => {
         buscarProductos();
     }, []);
 
-    const productosActivos = productos.filter(p=> p.activo);
+    const productosActivos = productos.filter(p => p.activo);
 
     const productosFiltrados = productosActivos.filter((item) =>
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase())
@@ -64,68 +64,77 @@ const ProductoCard = () => {
     }
 
     return (
-       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-6">
-    {productosFiltrados.map((item) => (
-        <div
-            key={item.id}
-            className="group relative bg-white rounded-[2.5rem] p-3 border border-[#F3E5AB]/20 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(212,175,55,0.15)] transition-all duration-500 ease-out"
-        >
-            {/* Contenedor de Imagen con Efecto Zoom */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#FDFBF7]">
-                <img
-                    src={item.img && item.img.trim() !== ""
-                        ? item.img
-                        : 'https://placehold.co/400x500/FDFBF7/D4AF37?text=Aromas+Sofia'}
-                    alt={item.nombre}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
-                />
-                
-                {/* Overlay gradiente suave al hacer hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1405]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 p-6">
+            {productosFiltrados.map((item) => (
+                <div
+                    key={item.id}
+                    className="group relative bg-white rounded-[2.5rem] p-3 border border-[#F3E5AB]/20 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(212,175,55,0.15)] transition-all duration-500 ease-out"
+                >
+                    {/* Contenedor de Imagen */}
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#FDFBF7]">
+                        <img
+                            src={item.img && item.img.trim() !== ""
+                                ? item.img
+                                : 'https://placehold.co/400x500/FDFBF7/D4AF37?text=Aromas+Sofia'}
+                            alt={item.nombre}
+                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                        />
 
-                {item.activo && (
-                    <div className="absolute top-4 left-4 bg-white/80 backdrop-blur-md px-4 py-1.5 rounded-full shadow-sm border border-[#F3E5AB]/50">
-                        <p className="text-[10px] font-black text-[#996515] uppercase tracking-[0.15em]">
-                            Disponible
-                        </p>
-                    </div>
-                )}
-            </div>
+                        {/* Overlay oscuro al hacer hover en la imagen */}
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            {/* Información del Producto */}
-            <div className="mt-5 px-3 pb-4">
-                <div className="mb-2">
-                    <p className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest mb-1">Fragancia Exclusiva</p>
-                    <h3 className="text-slate-900 font-black text-xl leading-tight group-hover:text-[#996515] transition-colors duration-300">
-                        {item.nombre}
-                    </h3>
-                </div>
-
-                {/* Descripción con límite de 2 líneas */}
-                <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 min-h-[2.5rem]">
-                    {item.descripcion || "Sumérgete en una experiencia sensorial única con nuestra esencia artesanal."}
-                </p>
-
-                <div className="flex justify-between items-end mt-6">
-                    <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Inversión</span>
-                        <span className="text-2xl font-black text-slate-900 tracking-tight">
-                            {formatarMoeda(Number(item.venta), 'PYG')}
-                        </span>
+                        {item.activo && (
+                            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full shadow-sm border border-[#F3E5AB]/50 z-10">
+                                <p className="text-[10px] font-black text-[#996515] uppercase tracking-[0.15em]">
+                                    Disponible
+                                </p>
+                            </div>
+                        )}
                     </div>
 
-                    <button 
-                        onClick={() => addToCart(item)}
-                        className="relative overflow-hidden bg-[#1a1405] text-white p-4 rounded-2xl hover:bg-[#D4AF37] shadow-xl shadow-[#1a1405]/10 hover:shadow-[#D4AF37]/30 transition-all duration-300 group/btn"
-                        title="Agregar al carrito"
-                    >
-                        <Plus className="w-6 h-6 transform group-hover/btn:rotate-90 transition-transform duration-300" />
-                    </button>
+                    {/* Información del Producto */}
+                    <div className="mt-5 px-3 pb-4 relative">
+                        <div className="mb-2">
+                            <p className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest mb-1">Fragancia Exclusiva</p>
+                            <h3 className="text-slate-900 font-black text-xl leading-tight group-hover:text-[#996515] transition-colors duration-300">
+                                {item.nombre}
+                            </h3>
+                        </div>
+
+                        {/* CONTENEDOR DE DESCRIPCIÓN DINÁMICA */}
+                        <div className="relative h-12 mb-4">
+                            {/* Texto truncado (Estado normal) */}
+                            <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 group-hover:opacity-0 transition-opacity duration-300">
+                                {item.descripcion}
+                            </p>
+
+                            {/* Texto completo (Aparece en Hover) */}
+                            <div className="absolute top-0 left-0 w-full bg-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 z-20">
+                                <p className="text-slate-600 text-sm leading-relaxed">
+                                    {item.descripcion}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between items-end mt-2">
+                            <div className="flex flex-col">
+                                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Inversión</span>
+                                <span className="text-2xl font-black text-slate-900 tracking-tight">
+                                    {formatarMoeda(Number(item.venta), 'PYG')}
+                                </span>
+                            </div>
+
+                            <button
+                                onClick={() => addToCart(item)}
+                                className="bg-[#1a1405] text-white p-4 rounded-2xl hover:bg-[#D4AF37] shadow-xl shadow-[#1a1405]/10 hover:shadow-[#D4AF37]/30 transition-all duration-300 group/btn"
+                            >
+                                <Plus className="w-6 h-6 transform group-hover/btn:rotate-90 transition-transform duration-300" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            ))}
         </div>
-    ))}
-</div>
     );
 };
 
