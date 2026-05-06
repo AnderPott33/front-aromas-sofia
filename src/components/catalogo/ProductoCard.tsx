@@ -100,7 +100,7 @@ const ProductoCard = () => {
             <div className="mt-5 px-3 pb-4">
                 <div className="mb-4">
                     <p className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest mb-1">Fragancia Exclusiva</p>
-                    <h3 className="text-slate-900 font-black text-xl leading-tight truncate">
+                    <h3 className="text-slate-900 font-black text-md leading-tight truncate">
                         {item.nombre}
                     </h3>
                 </div>
