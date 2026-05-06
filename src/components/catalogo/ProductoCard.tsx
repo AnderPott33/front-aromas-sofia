@@ -9,6 +9,7 @@ interface Producto {
     nombre: string;
     compra: number;
     venta: number;
+    descripcion: string;
     img: string | null;
     activo: boolean;
 };
@@ -89,6 +90,9 @@ const ProductoCard = () => {
                     <div className="mt-4 px-2">
                         <h3 className="text-slate-800 font-bold text-lg leading-tight group-hover:text-[#D4AF37] transition-colors">
                             {item.nombre}
+                        </h3>
+                        <h3 className="text-slate-800 font-bold text-lg leading-tight group-hover:text-[#D4AF37] transition-colors">
+                            {item.descripcion}
                         </h3>
                         <p className="text-slate-400 text-xs mt-1">Fragancia exclusiva</p>
 
