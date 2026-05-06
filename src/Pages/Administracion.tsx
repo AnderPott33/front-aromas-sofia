@@ -14,6 +14,7 @@ export interface Producto {
     nombre: string;
     compra: number;
     venta: number;
+    descripcion?: string;
     img?: string;
     activo: boolean;
 }

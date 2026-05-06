@@ -8,6 +8,7 @@ interface Producto {
   nombre: string;
   compra: number;
   venta: number;
+  descripcion: String;
   img?: string;
   activo: boolean;
 }
@@ -26,6 +27,7 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
   const [nombre, setNombre] = useState('');
   const [compra, setCompra] = useState<number>(0);
   const [venta, setVenta] = useState<number>(0);
+  const [descripcion, setDescripcion] = useState('');
   const [activo, setActivo] = useState(true);
   const [imagenFile, setImagenFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
@@ -36,6 +38,7 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
       setNombre(productoParaEditar.nombre);
       setCompra(Number(productoParaEditar.compra));
       setVenta(Number(productoParaEditar.venta));
+      setDescripcion(productoParaEditar.descripcion);
       setActivo(productoParaEditar.activo);
       setPreviewUrl(productoParaEditar.img || '');
     } else {
@@ -47,6 +50,7 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
     setNombre('');
     setCompra(0);
     setVenta(0);
+    setDescripcion('');
     setActivo(true);
     setImagenFile(null);
     setPreviewUrl('');
@@ -70,6 +74,7 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
     formData.append('nombre', nombre);
     formData.append('compra', compra.toString());
     formData.append('venta', venta.toString());
+    formData.append('descripcion', descripcion.toString());
     formData.append('activo', activo.toString());
     if (imagenFile) formData.append('img', imagenFile); // El nombre 'img' debe coincidir con upload.single('img') en el back
 
@@ -136,6 +141,17 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
                 type="text"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
+                className="w-full px-5 py-3 bg-[#FDFBF7] border border-[#F3E5AB] rounded-2xl outline-none focus:ring-2 focus:ring-[#D4AF37]/20"
+                placeholder="Ej: Vela Vainilla"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-slate-500 uppercase ml-2">Descripción del Producto</label>
+              <input
+                required
+                type="text"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
                 className="w-full px-5 py-3 bg-[#FDFBF7] border border-[#F3E5AB] rounded-2xl outline-none focus:ring-2 focus:ring-[#D4AF37]/20"
                 placeholder="Ej: Vela Vainilla"
               />
