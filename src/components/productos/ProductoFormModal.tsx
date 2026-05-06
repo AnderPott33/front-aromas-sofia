@@ -74,7 +74,7 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
     formData.append('nombre', nombre);
     formData.append('compra', compra.toString());
     formData.append('venta', venta.toString());
-    formData.append('descripcion', descripcion.toString());
+    formData.append('descripcion', descripcion);
     formData.append('activo', activo.toString());
     if (imagenFile) formData.append('img', imagenFile); // El nombre 'img' debe coincidir con upload.single('img') en el back
 
@@ -148,7 +148,6 @@ const ProductoFormModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, produc
             <div>
               <label className="text-xs font-bold text-slate-500 uppercase ml-2">Descripción del Producto</label>
               <input
-                required
                 type="text"
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
